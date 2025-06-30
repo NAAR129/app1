@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+
+<html lang="es-ES">
+<head id="Head"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title></title>
+    <script type="text/javascript" charset="UTF-8" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <style>
+        .graphbox {
+            width: 50%;
+            height: 0;
+            padding-bottom: 50%;
+			float:left;
+        }
+		.graphbox2 {
+            width: 45%;
+            height: 0;
+            padding-bottom: 45%;
+			float:left;
+        }
+	    .graphbox3 {
+            width: 45%;
+            height: 0;
+            padding-bottom: 5%;
+			float:left;
+        }
+    </style>
+</head>
+<body>
+
+
+
+<div id="box" class="jxgbox graphbox"></div>
+<div id="box2" class="jxgbox graphbox2"></div>
+<div id="box3" class="jxgbox graphbox3"></div>
+
+
+
+<script type="text/javascript">
+   
+   board = JXG.JSXGraph.initBoard('box', {boundingbox: [-10, 10, 10, -1], axis:false,showCopyright:false,showNavigation:false});
+   
+   board2 = JXG.JSXGraph.initBoard('box2', {boundingbox: [-5, 5, 5, -5], axis:true,showCopyright:false,showNavigation:false});
+   
+   board3 = JXG.JSXGraph.initBoard('box3', {boundingbox: [-5, 5, 5, -5], axis:false,showCopyright:false,showNavigation:false});
+   
+   
+   
+   a1 = board.create('slider',[[-9.6,8.6],[5,8.6],[-3,1,3]], {snapWidth:0.1, name:'A_1'});
+   b1 = board.create('slider',[[-9.6,7.4],[5,7.4],[-3,1,3]], {snapWidth:0.1, name:'B_1'});
+   c1 = board.create('slider',[[-9.6,6.2],[5,6.2],[-3,0,3]], {snapWidth:0.1, name:'C_1'});
+   d1 = board.create('slider',[[-9.6,5],[5,5],[-3,0,3]], {snapWidth:0.1, name:'D_1'});
+   
+   
+   // crear rectangulo
+//initPtA = board2.create('point',[-4.5,4.5],{name:''});
+//initPtC = board2.create('point',[4.5,-4.5],{name:''});
+//initPtB = board2.create('point',[function(){return (initPtC.X()) },function(){return (initPtA.Y()) }],{name:'B',visible:false});
+//initPtD = board2.create('point',[function(){return (initPtA.X()) },function(){return (initPtC.Y()) }],{name:'',visible:false});
+
+
+//r1 = board2.create('segment',[initPtA,initPtB],{highlight: false, dash:2, withLabel:true, name:'', strokeWidth: 3, color: 'grey'});
+//r2 = board2.create('segment',[initPtB,initPtC],{highlight: false, dash:2, withLabel:true, name:'', strokeWidth: 3, color: 'grey'});
+//r3 = board2.create('segment',[initPtC,initPtD],{highlight: false, dash:2, withLabel:true, name:'', strokeWidth: 3, color: 'grey'});
+//r4 = board2.create('segment',[initPtD,initPtA],{highlight: false, dash:2, withLabel:true, name:'', strokeWidth: 3, color: 'grey'});
+   
+   sx = board2.create('functiongraph',[function(x){
+                                       return a1.Value()*Math.sin(b1.Value()*(Math.PI*x)+c1.Value())+d1.Value();
+                                       },-10,10],{strokeWidth: 3, strokeColor: 'red', withLabel: false, highlight: false, visible:false});
+                                       
+                                       
+                                       var heightVisible1 = false;
+                                       chk1 = board.create('text', [-7.5,9.5, '<input type="checkbox" id="showHeight1" onChange="showHeight1()"  />  f(x)'],{highlight: false, strokeColor: 'red'});
+                                       showHeight1 = function(){
+                                           heightVisible1 = !heightVisible1;
+                                           sx.setProperty({visible:heightVisible1});
+                                       };
+chk1.setProperty({fixed:true});
+
+
+
+a2 = board.create('slider',[[-9.6,3.1],[5,3.1],[-3,1,3]], {snapWidth:0.1, name:'A_2'});
+b2 = board.create('slider',[[-9.6,1.9],[5,1.9],[-3,1,3]], {snapWidth:0.1, name:'B_2'});
+c2 = board.create('slider',[[-9.6,0.7],[5,0.7],[-3,0,3]], {snapWidth:0.1, name:'C_2'});
+d2 = board.create('slider',[[-9.6,-0.5],[5,-0.5],[-3,0,3]], {snapWidth:0.1, name:'D_2'});
+
+
+
+
+
+
+cx = board2.create('functiongraph',[function(x){
+                                    return a2.Value()*Math.cos(b2.Value()*(Math.PI*x)+c2.Value())+d2.Value();
+                                    },-10,10],{strokeWidth: 3,
+                   strokeColor: 'blue',
+                   withLabel: false,
+                   highlight: false, visible:false});
+                   
+                   var heightVisible2 = false;
+                   chk2 = board.create('text', [-7.5,4, '<input type="checkbox" id="showHeight2" onChange="showHeight2()"  />  g(x)'],{highlight: false, strokeColor: 'blue'});
+                   showHeight2 = function(){
+                       heightVisible2 = !heightVisible2;
+                       cx.setProperty({visible:heightVisible2});
+                   };
+chk2.setProperty({fixed:true});
+
+
+
+
+
+
+
+var li1 = board.create('line',[[-10,4.5],[10,4.5]], {straightFirst:false, straightLast:false, strokeWidth:2, fixed:true, highlight: false, strokeColor: 'grey', dash:2});
+
+
+
+
+
+
+//txt = board3.create('text',[-4.5,1, 'Culebras'], {fontSize:20,fixed:true,highlight: false});
+
+
+
+   
+   
+ 
+  board.addChild(board2);
+  board.addChild(board3);
+
+
+	
+
+	
+	
+	
+	
+	
+
+
+		
+		
+		
+		
+		
+        var resize = function () {
+            board.resizeContainer(board.containerObj.clientWidth, board.containerObj.clientHeight, true);
+            board.fullUpdate();
+        };
+
+        window.onresize = resize;
+</script>
+</body>
+</html>
